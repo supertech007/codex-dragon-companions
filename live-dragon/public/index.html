@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101523">
+  <title>Dragon Usage Companions</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 28px; color: #f3f6fc; background: radial-gradient(ellipse at 50% 5%, #27364c 0, #171e2d 46%, #0d111b 100%); }
+    .app { width: min(980px, 100%); border: 1px solid #ffffff18; border-radius: 28px; overflow: hidden; background: linear-gradient(145deg, #172132eF, #111724f5); box-shadow: 0 28px 90px #0008, inset 0 1px #ffffff0e; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; border-bottom: 1px solid #ffffff12; gap: 16px; }
+    .eyebrow { color: #9ba9bb; text-transform: uppercase; letter-spacing: .16em; font-size: 10px; font-weight: 750; }
+    h1 { font-size: clamp(19px, 3vw, 25px); margin: 5px 0 0; letter-spacing: -.035em; }
+    .refresh { text-align: right; color: #9ba9bb; font-size: 12px; line-height: 1.5; }
+    .connection { display: inline-flex; align-items: center; gap: 7px; justify-content: flex-end; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #69dca6; box-shadow: 0 0 10px #69dca688; }
+    .dot.error { background: #ff886c; box-shadow: 0 0 10px #ff886c88; }
+    .pet-tabs { display: flex; gap: 8px; padding: 17px 26px 0; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    .tab { border: 1px solid #ffffff18; border-radius: 999px; background: #ffffff08; padding: 9px 16px; color: #bac5d5; font-size: 13px; transition: .2s ease; }
+    .tab[aria-selected="true"] { border-color: var(--accent); color: #fff; background: color-mix(in srgb, var(--accent) 17%, #151d2a); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 18%, transparent); }
+    .stage { --accent: #ff7449; position: relative; min-height: 548px; display: grid; place-items: center; isolation: isolate; overflow: hidden; }
+    .stage::before { content: ""; position: absolute; width: 55%; height: 58%; left: 22.5%; top: 19%; border-radius: 50%; background: radial-gradient(ellipse, color-mix(in srgb, var(--accent) 12%, transparent), transparent 68%); filter: blur(25px); z-index: -1; }
+    .dragon { width: min(384px, 48vw); height: min(416px, 52vw); background-repeat: no-repeat; background-size: 3072px 4576px; image-rendering: auto; filter: drop-shadow(0 14px 30px #0005); }
+    .meter { position: absolute; display: grid; grid-template-columns: auto 30px; gap: 10px; align-items: center; min-width: 126px; }
+    .meter-five { left: clamp(14px, 22%, 220px); top: 22%; }
+    .meter-week { right: clamp(14px, 22%, 220px); bottom: 22%; }
+    .meter-info { display: grid; gap: 4px; }
+    .meter-label { color: #aab6c8; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .meter-value { font-size: 20px; font-weight: 760; line-height: 1; font-variant-numeric: tabular-nums; }
+    .capsules { height: 94px; width: 16px; display: flex; flex-direction: column-reverse; gap: 4px; padding: 3px; border: 1px solid #ffffff22; border-radius: 999px; background: #080c14a8; box-shadow: inset 0 1px 5px #0008, 0 4px 18px #0004; }
+    .capsule { flex: 1; min-height: 0; border-radius: 999px; background: color-mix(in srgb, var(--accent) 23%, #111722); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); position: relative; overflow: hidden; }
+    .capsule-fill { position: absolute; inset-inline: 0; bottom: 0; height: var(--fill); border-radius: inherit; background: var(--accent); box-shadow: 0 0 11px color-mix(in srgb, var(--accent) 70%, transparent); transition: height .8s cubic-bezier(.2,.8,.2,1); }
+    .meter-week { grid-template-columns: 30px auto; }
+    .meter-week .capsules { grid-column: 1; grid-row: 1; }
+    .meter-week .meter-info { grid-column: 2; grid-row: 1; }
+    .footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 16px 27px 21px; border-top: 1px solid #ffffff12; color: #8d9bad; font-size: 12px; }
+    .actions { display: flex; gap: 8px; }
+    .action { border: 1px solid #ffffff1f; border-radius: 999px; background: #ffffff08; padding: 8px 13px; font-size: 12px; color: #d3dbea; }
+    .action:hover, .tab:hover { background: #ffffff14; }
+    .error-note { color: #ffad99; }
+    @media (max-width: 620px) {
+      body { padding: 10px; }
+      .app { border-radius: 20px; }
+      header { padding: 18px; align-items: flex-start; }
+      .refresh { max-width: 42%; font-size: 10px; }
+      .pet-tabs { padding-inline: 16px; }
+      .tab { padding: 8px 11px; font-size: 12px; }
+      .stage { min-height: 440px; }
+      .dragon { width: min(310px, 56vw); height: min(338px, 61vw); background-size: 2480px 3694px; }
+      .meter { min-width: 0; grid-template-columns: 23px; gap: 5px; justify-items: center; }
+      .meter-five { left: 8px; top: 22%; }
+      .meter-week { right: 8px; bottom: 20%; grid-template-columns: 23px; }
+      .meter-week .capsules, .meter-week .meter-info { grid-column: 1; }
+      .meter-week .meter-info { grid-row: 2; text-align: center; }
+      .meter-label { font-size: 8px; letter-spacing: .02em; }
+      .meter-value { font-size: 16px; }
+      .capsules { height: 80px; width: 14px; }
+      .footer { padding: 13px 16px 16px; align-items: flex-start; font-size: 10px; }
+      .actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="app">
+    <header>
+      <div><div class="eyebrow">Codex companions</div><h1>Dragon usage keepers</h1></div>
+      <div class="refresh"><div class="connection"><i class="dot" id="status-dot"></i><span id="status">Connecting to Codex</span></div><div id="updated">Waiting for first reading…</div></div>
+    </header>
+    <nav class="pet-tabs" role="tablist" aria-label="Choose dragon">
+      <button class="tab" role="tab" aria-selected="true" data-pet="sol">Sol · Fire</button>
+      <button class="tab" role="tab" aria-selected="false" data-pet="astra">Astra · Thunder</button>
+      <button class="tab" role="tab" aria-selected="false" data-pet="luna">Luna · Ice</button>
+    </nav>
+    <section class="stage" id="stage" aria-label="Animated dragon and live usage indicators">
+      <div class="meter meter-five" aria-label="Five-hour usage remaining"><div class="meter-info"><span class="meter-label">Five-hour</span><strong class="meter-value" id="five-value">—</strong></div><div class="capsules" id="five-capsules"></div></div>
+      <div class="dragon" id="dragon" role="img" aria-label="Sol the fire dragon"></div>
+      <div class="meter meter-week" aria-label="Weekly usage remaining"><div class="capsules" id="week-capsules"></div><div class="meter-info"><span class="meter-label">Weekly</span><strong class="meter-value" id="week-value">—</strong></div></div>
+    </section>
+    <footer class="footer">
+      <span id="note">Side rails show live remaining usage; atlas bulbs are decorative. Refreshes every 15 minutes.</span>
+      <div class="actions"><button class="action" id="refresh-now">Refresh now</button><button class="action" id="action-now">Show elemental breath</button></div>
+    </footer>
+  </main>
+  <script>
+    const pets = {
+      sol: { name: 'Sol', element: 'Fire', color: '#ff7449', glow: 'rgba(255,116,73,.16)' },
+      astra: { name: 'Astra', element: 'Thunder', color: '#6de8ff', glow: 'rgba(109,232,255,.16)' },
+      luna: { name: 'Luna', element: 'Ice', color: '#a8dfff', glow: 'rgba(168,223,255,.16)' },
+    };
+    const dragon = document.querySelector('#dragon');
+    const stage = document.querySelector('#stage');
+    const app = document.querySelector('#app');
+    let selected = 'sol';
+    let fiveHour = null;
+    let weekly = null;
+    let forcedBreathUntil = 0;
+    let cycleStarted = performance.now();
+    let lastState = '';
+    let breathStarted = 0;
+    const atlases = {};
+    const frames = { idle: [0, 1, 2, 3, 4, 5], run: [0, 1, 2, 3, 4, 5, 6, 7], jump: [0, 1, 2, 3, 4], breath: [0, 1, 2, 3, 4, 5] };
+    function chooseState(now) {
+      if (now < forcedBreathUntil) return 'breath';
+      const phase = (now - cycleStarted) % 22000;
+      if (phase < 10500) return 'idle';
+      if (phase < 15000) return 'run';
+      if (phase < 17800) return 'jump';
+      if (phase < 19800) return 'breath';
+      return 'idle';
+    }
+    function paintDragon(now) {
+      const state = chooseState(now);
+      if (state !== lastState) {
+        lastState = state;
+        if (state === 'breath') breathStarted = now;
+        dragon.dataset.action = state === 'breath' ? `${pets[selected].element.toLowerCase()} breath` : state;
+      }
+      const fps = state === 'breath' ? 110 : 140;
+      const sequence = frames[state];
+      const frameIndex = state === 'breath' ? Math.floor((now - breathStarted) / 220) : Math.floor(now / fps);
+      const col = sequence[frameIndex % sequence.length];
+      const row = state === 'idle' ? 0 : state === 'run' ? 1 : state === 'jump' ? 4 : 7;
+      const scale = innerWidth <= 620 ? 1.614583 : 2;
+      dragon.style.backgroundPosition = `${-col * 192 * scale}px ${-row * 208 * scale}px`;
+      requestAnimationFrame(paintDragon);
+    }
+    function setPet(id) {
+      selected = id;
+      const pet = pets[id];
+      stage.style.setProperty('--accent', pet.color);
+      const atlas = atlases[id] || new Image();
+      if (!atlases[id]) {
+        atlas.src = `/pets/${id}`;
+        atlases[id] = atlas;
+      }
+      dragon.style.backgroundImage = `url('/pets/${id}')`;
+      dragon.setAttribute('aria-label', `${pet.name} the ${pet.element.toLowerCase()} dragon`);
+      for (const button of document.querySelectorAll('.tab')) button.setAttribute('aria-selected', String(button.dataset.pet === id));
+      app.style.setProperty('--accent', pet.color);
+      document.querySelector('#action-now').textContent = `Show ${pet.element.toLowerCase()} breath`;
+      lastState = '';
+    }
+    function setMeter(container, percent) {
+      container.replaceChildren();
+      for (let index = 0; index < 5; index += 1) {
+        const fill = Math.max(0, Math.min(100, (percent - index * 20) * 5));
+        const capsule = document.createElement('span');
+        capsule.className = 'capsule';
+        const active = document.createElement('span');
+        active.className = 'capsule-fill';
+        active.style.setProperty('--fill', `${fill}%`);
+        capsule.append(active);
+        container.append(capsule);
+      }
+    }
+    function showUsage(data) {
+      const dot = document.querySelector('#status-dot');
+      const status = document.querySelector('#status');
+      if (Number.isFinite(data.primary) && Number.isFinite(data.secondary)) {
+        fiveHour = data.primary;
+        weekly = data.secondary;
+        document.querySelector('#five-value').textContent = `${fiveHour}%`;
+        document.querySelector('#week-value').textContent = `${weekly}%`;
+        setMeter(document.querySelector('#five-capsules'), fiveHour);
+        setMeter(document.querySelector('#week-capsules'), weekly);
+        dot.classList.toggle('error', Boolean(data.error));
+        status.textContent = data.error ? 'Last reading · refresh failed' : 'Connected to Codex';
+        document.querySelector('#updated').textContent = data.updatedAt ? `Updated ${new Date(data.updatedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : 'Reading is cached';
+        document.querySelector('#note').textContent = data.error ? `Showing the last successful reading. ${data.error}` : 'Side rails show live remaining usage; atlas bulbs are decorative · refreshes every 15 minutes';
+      } else {
+        dot.classList.add('error');
+        status.textContent = 'Usage unavailable';
+        document.querySelector('#note').textContent = data.error || 'Waiting for Codex account usage.';
+      }
+    }
+    async function poll(force = false) {
+      try {
+        const response = await fetch(force ? '/api/refresh' : '/api/usage', { method: force ? 'POST' : 'GET', cache: 'no-store' });
+        showUsage(await response.json());
+      } catch {
+        showUsage({ error: 'Could not reach the local usage companion.' });
+      }
+    }
+    document.querySelectorAll('.tab').forEach((button) => button.addEventListener('click', () => setPet(button.dataset.pet)));
+    document.querySelector('#refresh-now').addEventListener('click', () => poll(true));
+    document.querySelector('#action-now').addEventListener('click', () => { forcedBreathUntil = performance.now() + 3000; });
+    setPet(selected);
+    poll();
+    setInterval(poll, 5000);
+    requestAnimationFrame(paintDragon);
+  </script>
+</body>
+</html>

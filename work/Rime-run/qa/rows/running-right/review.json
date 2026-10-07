@@ -1,0 +1,142 @@
+{
+  "ok": true,
+  "frames_root": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames",
+  "states": [
+    "running-right"
+  ],
+  "errors": [],
+  "warnings": [],
+  "rows": [
+    {
+      "state": "running-right",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15154,
+          "bbox": [
+            5,
+            26,
+            187,
+            182
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 510
+        },
+        {
+          "index": 1,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16190,
+          "bbox": [
+            5,
+            20,
+            187,
+            187
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 552
+        },
+        {
+          "index": 2,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16864,
+          "bbox": [
+            5,
+            15,
+            187,
+            192
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 515
+        },
+        {
+          "index": 3,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15663,
+          "bbox": [
+            5,
+            22,
+            187,
+            185
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 518
+        },
+        {
+          "index": 4,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13329,
+          "bbox": [
+            5,
+            26,
+            187,
+            181
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 449
+        },
+        {
+          "index": 5,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15666,
+          "bbox": [
+            5,
+            20,
+            187,
+            187
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 513
+        },
+        {
+          "index": 6,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15391,
+          "bbox": [
+            5,
+            24,
+            187,
+            184
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 535
+        },
+        {
+          "index": 7,
+          "file": "/Users/mohan/Documents/Codex/2026-09-23/hatch-pet-users-mohan-codex-skills/work/Rime-run/qa/rows/running-right/frames/running-right/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14206,
+          "bbox": [
+            5,
+            30,
+            187,
+            177
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 461
+        }
+      ]
+    }
+  ]
+}

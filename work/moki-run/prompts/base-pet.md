@@ -1,0 +1,7 @@
+Create one clean full-body reference sprite for Codex pet Moki.
+
+Pet identity: A compact plush-tech otter-like builder companion for Mohan: warm charcoal and teal body, expressive amber eyes, tiny round glasses, a small slate pad held close to the torso. The pad has two rows of five simple colored indicator lamps: one row for hourly capacity and one row for weekly capacity, visually encoding current limits without readable text. The pad is an attached identity prop, not a separate floating object. Personality: analytical, patient, curious, quietly persistent..
+Style: Pet-safe sprite: compact full-body mascot, readable in a 192x208 cell, clear silhouette, simple face, stable palette/materials, and crisp edges for chroma-key extraction. Style `plush`: Soft plush toy mascot with rounded stitched forms, fuzzy fabric feel, simple sewn details, and readable toy-like proportions. User style notes: soft 3D plush mascot with clean toy-like forms, high readability at pet size, teal and amber accents, charcoal body, compact stable silhouette.
+
+
+Place a single centered pose on a perfectly flat pure magenta #FF00FF chroma-key background. Keep the full pet visible, compact, readable at 192x208, and easy to animate. Preserve approved reference identity cues. No scenery, text, borders, checkerboard transparency, shadows, glows, detached effects, or extra props. Keep #FF00FF and close colors out of the pet, props, highlights, and effects.
